@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_framework_simplejwt',
     'user'
+    'django_filters',
+    'book',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,10 @@ SPECTACULAR_SETTINGS = {
 
 AUTH_USER_MODEL = 'user.User'
 CORS_ORIGIN_ALLOW_ALL = True
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}

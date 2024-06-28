@@ -1,18 +1,16 @@
-from rest_framework import generics
-from rest_framework.response import Response
+# api/views.py
+from rest_framework import generics, permissions
+from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import UserSerializer
-from .models import User
+User = get_user_model()
 
-class UserListCreateAPIView(generics.ListCreateAPIView):
+class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    permission_classes = [permissions.AllowAny]
 
-    def perform_create(self):
-        self.serializer.save()
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
