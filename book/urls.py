@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import  BookViewSet, BorrowBookView, ReturnBookView
 
 router = DefaultRouter()
-router.register(r'books', BookViewSet)
+router.register(r'', BookViewSet)
 
 urlpatterns = [
     path('borrow/', BorrowBookView.as_view(), name='borrow-book'),
